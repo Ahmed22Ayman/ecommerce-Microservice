@@ -15,6 +15,7 @@ import com.konecta.auth_service.model.Role;
 import com.konecta.auth_service.model.User;
 import com.konecta.auth_service.repository.UserRepository;
 import com.konecta.auth_service.security.JwtUtil;
+import com.konecta.auth_service.dto.LoginRequest;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -44,14 +45,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
-        String username = loginRequest.get("username");
-        String password = loginRequest.get("password");
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+
+        // Resolve the username by email first
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
 
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password));
+                new UsernamePasswordAuthenticationToken(user.getUsername(), password));
 
-        String token = jwtUtil.generateToken(username);
+        String token = jwtUtil.generateToken(user.getUsername());
         return ResponseEntity.ok(Map.of("token", token));
     }
 }

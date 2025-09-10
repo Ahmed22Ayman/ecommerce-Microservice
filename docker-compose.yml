@@ -1,4 +1,4 @@
 services:
   postgresql:
-    container_name: ms_pg_sql
+    container_name: authdb
     image: postgres

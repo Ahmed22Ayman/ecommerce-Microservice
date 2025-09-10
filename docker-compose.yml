@@ -1,4 +1,0 @@
-services:
-  postgresql:
-    container_name: authdb
-    image: postgres

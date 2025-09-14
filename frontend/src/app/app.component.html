@@ -1,0 +1,35 @@
+<header class="header">
+  <div class="header-container">
+    <h2 class="logo">E-Commerce</h2>
+    <button class="login-btn" routerLink="/login">
+      <i class="pi pi-user"></i>
+      Login
+    </button>
+  </div>
+</header>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <i class="pi pi-home"></i>Home
+      </a>
+      <a routerLink="/products" routerLinkActive="active">
+        <i class="pi pi-shopping-bag"></i>Products
+      </a>
+      <a routerLink="/cart" routerLinkActive="active">
+        <i class="pi pi-shopping-cart"></i>Cart
+      </a>
+      <a routerLink="/wishlist" routerLinkActive="active">
+        <i class="pi pi-heart"></i>Wishlist
+      </a>
+      <a routerLink="/checkout" routerLinkActive="active">
+        <i class="pi pi-credit-card"></i>Checkout
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

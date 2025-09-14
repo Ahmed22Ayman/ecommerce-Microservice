@@ -1,0 +1,58 @@
+<div class="products-container">
+  <div class="products-header">
+    <h2>Products</h2>
+    <button class="btn btn-primary" (click)="loadProducts()" [disabled]="loading">
+      <i class="pi pi-refresh"></i>
+      {{ loading ? 'Loading...' : 'Refresh' }}
+    </button>
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    <i class="pi pi-exclamation-triangle"></i>
+    {{ error }}
+  </div>
+  
+  <div class="products-grid" *ngIf="!loading">
+    <div class="product-card" *ngFor="let product of products">
+      <div class="product-image">
+        <i class="pi pi-image"></i>
+      </div>
+      
+      <div class="product-details">
+        <h4>{{ product.name }}</h4>
+        <p class="product-description">{{ product.description }}</p>
+        
+        <div class="product-price">
+          <span class="price">${{ product.price }}</span>
+          <span class="category">{{ product.category }}</span>
+        </div>
+        
+        <div class="product-stock">
+          <span class="stock-badge" [class.in-stock]="product.stock > 0" [class.out-of-stock]="product.stock === 0">
+            {{ product.stock > 0 ? 'In Stock (' + product.stock + ')' : 'Out of Stock' }}
+          </span>
+        </div>
+      </div>
+      
+      <div class="product-actions">
+        <button 
+          class="btn btn-primary" 
+          [disabled]="product.stock === 0"
+          (click)="addToCart(product)">
+          <i class="pi pi-shopping-cart"></i>
+          Add to Cart
+        </button>
+        <button 
+          class="btn btn-outline wishlist-btn"
+          (click)="addToWishlist(product)">
+          <i class="pi pi-heart"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="loading" class="loading-spinner">
+    <i class="pi pi-spin pi-spinner"></i>
+    Loading products...
+  </div>
+</div>

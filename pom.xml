@@ -61,6 +61,7 @@
 	<modules>
 		<module>auth-service</module>
 		<module>product-service</module>
+		<module>order-service</module>
 	</modules>
 
 </project>
